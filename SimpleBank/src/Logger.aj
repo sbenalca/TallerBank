@@ -7,6 +7,8 @@ public aspect Logger {
     //Aspecto ejemplo: solo muestra este mensaje después de haber creado un usuario 
     	System.out.println("**** User created ****");
     }
+    
+    
 	
 	
 }
