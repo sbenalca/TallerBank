@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,9 +18,10 @@ public aspect Log {
 	after(): transaction(){
 		// Inserte aquí código para escribir en el file una transacción de tipo depósito
 		// o (realizar transacción)
-		String fecha = cal.getTime().toString();
+		String fecha = getTime();
 		System.out.println("****Transacción realizada*****");
-		System.out.println("Tipo de transaccion: " + "Transacción" + " Hora: " + getTime());
+		System.out.println("Tipo de transaccion: " + "Deposito" + " Hora: " + fecha);
+		writeFile("Deposito", fecha);
 	}
 
 	pointcut retiro(): call(* moneyWithdraw*(..));
@@ -26,9 +29,10 @@ public aspect Log {
 	after(): retiro(){
 		// Inserte aquí código para escribir en el file una transacción de tipo retiro o
 		// (realizar retiro)
-		String fecha = cal.getTime().toString();
+		String fecha = getTime();
 		System.out.println("****Transacción realizada*****");
-		System.out.println("Tipo de transaccion: " + "Depósito" + " Hora: " + getTime());
+		System.out.println("Tipo de transaccion: " + "Retiro" + " Hora: " + fecha);
+		writeFile("Retiro", fecha);
 	}
 
 	public String getTime() {
@@ -37,6 +41,29 @@ public aspect Log {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		String formattedDate = dateFormat.format(date);
 		return formattedDate;
+	}
+
+	public void writeFile(String t, String h) {
+		try {
+			FileWriter archivo;
+			File objFile = new File("Log.txt");
+			if (objFile.createNewFile()) {
+				// System.out.println("File created: " + objFile.getName());
+				archivo = new FileWriter(objFile, true);
+				archivo.write("===================== REGISTRO DE TRANSACCIONES =====================" + "\r\n");
+
+			} else {
+				archivo = new FileWriter(objFile, true);
+				archivo.write("Tipo de transaccion: " + t + " , Hora: " + h + ";" + "\r\n");
+
+			}
+
+			archivo.close();
+
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
 	}
 
 	// aquí se cerraría el file
