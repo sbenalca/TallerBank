@@ -3,3 +3,4 @@ Tipo de transaccion: Deposito , Hora: 20:43:09;
 Tipo de transaccion: Deposito , Hora: 20:50:00;
 Tipo de transaccion: Retiro , Hora: 20:50:04;
 Tipo de transaccion: Deposito , Hora: 20:52:05;
+Tipo de transaccion: Deposito , Hora: 20:55:58;

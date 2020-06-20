@@ -18,10 +18,9 @@ public aspect Log {
 	after(): transaction(){
 		// Inserte aquí código para escribir en el file una transacción de tipo depósito
 		// o (realizar transacción)
-		String fecha = getTime();
-		System.out.println("****Transacción realizada*****");
-		System.out.println("Tipo de transaccion: " + "Deposito" + " Hora: " + fecha);
-		writeFile("Deposito", fecha);
+		String hora_actual = getTime();
+
+		writeFile("Deposito", hora_actual);
 	}
 
 	pointcut retiro(): call(* moneyWithdraw*(..));
@@ -29,10 +28,9 @@ public aspect Log {
 	after(): retiro(){
 		// Inserte aquí código para escribir en el file una transacción de tipo retiro o
 		// (realizar retiro)
-		String fecha = getTime();
-		System.out.println("****Transacción realizada*****");
-		System.out.println("Tipo de transaccion: " + "Retiro" + " Hora: " + fecha);
-		writeFile("Retiro", fecha);
+		String hora_actual = getTime();
+
+		writeFile("Retiro", hora_actual);
 	}
 
 	public String getTime() {
@@ -45,6 +43,8 @@ public aspect Log {
 
 	public void writeFile(String t, String h) {
 		try {
+			System.out.println("****Transacción realizada*****");
+			System.out.println("Tipo de transaccion: " + t + " Hora: " + h);
 			FileWriter archivo;
 			File objFile = new File("Log.txt");
 			if (objFile.createNewFile()) {
