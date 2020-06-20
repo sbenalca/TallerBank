@@ -44,7 +44,7 @@ public aspect Log {
 	public void writeFile(String t, String h) {
 		try {
 			System.out.println("****Transacción realizada*****");
-			System.out.println("Tipo de transaccion: " + t + " Hora: " + h);
+			System.out.println("Tipo de transaccion: " + t + ", Hora: " + h);
 			FileWriter archivo;
 			File objFile = new File("Log.txt");
 			if (objFile.createNewFile()) {
